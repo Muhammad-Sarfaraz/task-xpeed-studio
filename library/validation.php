@@ -14,8 +14,22 @@ class Validation
     public function checkOnlyText($text, $length)
     {
         $text = $this->testInput($text,);
-        if (preg_match("/^s[a-z]*$/i", $text)) {
-            if (strlen($text) >= $length) {
+        if (ctype_alpha($text)) {
+            if (strlen($text) <= $length) {
+                return $text;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    public function checkOnlyTextWithSpace($text, $length)
+    {
+        $text = $this->testInput($text,);
+        if (preg_match("/^[a-zA-Z\s]+$/", $text)) {
+            if (strlen($text) <= $length) {
                 return $text;
             } else {
                 return 0;
@@ -29,7 +43,7 @@ class Validation
     {
         $name = $this->testInput($name);
         if (preg_match("/^[a-zA-Z ]*$/", $name)) {
-            if (strlen($name) >= $length) {
+            if (strlen($name) <= $length) {
                 return $name;
             } else {
                 return 0;
@@ -52,6 +66,16 @@ class Validation
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return $email;
+        } else {
+            return 0;
+        }
+    }
+
+    public function checkLength($text, $length)
+    {
+
+        if (str_word_count($text) <= $length) {
+            return $text;
         } else {
             return 0;
         }

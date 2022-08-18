@@ -18,19 +18,19 @@ class Order
         return 0;
         $amount = $this->validation->checkNum($_POST['amount']);
         $buyer = $this->validation->checkName($_POST['buyer'], 20);
-        $receipt_id = $this->validation->checkOnlyText($_POST['receipt_id']);
-        $items = $this->validation->checkName($_POST['items']);
+        $receipt_id = $this->validation->checkOnlyText($_POST['receipt_id'], 20);
+        $items = $this->validation->checkName($_POST['items'], 255);
         $email = $this->validation->checkEmail($_POST['email']);
-        $city = $this->validation->checkName($_POST['city']);
-        $phone = $this->validation->checkName($_POST['phone']);
-        $entry_by = $this->validation->checkName($_POST['entry_by']);
-        $note = $this->validation->checkName($_POST['note']);
+        $city = $this->validation->checkOnlyTextWithSpace($_POST['city'], 20);
+        $phone = $this->validation->checkOnlyTextWithSpace($_POST['phone'], 20);
+        $entry_by = $this->validation->checkNum($_POST['entry_by']);
+        $note = $this->validation->checkLength($_POST['note'], 30);
 
         if (($phone) == 0) {
             return 0;
             exit;
         } else {
-            $query = "INSERT INTO employee VALUES ('', :name, :gender, :email, :phone, :address)";
+            $query = "INSERT INTO orders VALUES ('', :name, :gender, :email, :phone, :address)";
             $this->db->query($query);
             $this->db->bind('email', $email);
             $this->db->bind('phone', $phone);
