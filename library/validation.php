@@ -18,18 +18,20 @@ class Validation
             if (strlen($text) <= $length) {
                 return [
                     'valid' => true,
-                    'text' => $text
+                    'text'  => $text
                 ];
             } else {
                 return [
                     'valid' => false,
-                    'text' => 'Please provide a valid' . $name
+                    'error' => 'Please provide a valid ' . $name . ' with only containing text Max: ' . $length,
+                    'text'  => $text
                 ];
             }
         } else {
             return [
                 'valid' => false,
-                'text' => 'Please provide a valid ' . $name . ' Max: ' . $length
+                'error' => 'Please provide a valid ' . $name . ' with only containing text Max: ' . $length,
+                'text'  => $text
             ];
         }
     }
@@ -41,18 +43,20 @@ class Validation
             if (strlen($text) <= $length) {
                 return  [
                     'valid' => true,
-                    'text' => $text
+                    'text'  => $text
                 ];
             } else {
                 return [
                     'valid' => false,
-                    'text' => 'Please provide a valid text.'
+                    'error' => 'Please provide a valid ' . $name . ' Max: ' . $length,
+                    'text'  => $text
                 ];
             }
         } else {
             return [
                 'valid' => false,
-                'text' =>  'Please provide a valid ' . $name . ' Max: ' . $length
+                'error' => 'Please provide a valid ' . $name . ' Max: ' . $length,
+                'text'  => $text
             ];
         }
     }
@@ -64,48 +68,52 @@ class Validation
             if (strlen($text) <= $length) {
                 return  [
                     'valid' => true,
-                    'text' => $text
+                    'text'  => $text
                 ];
             } else {
                 return [
                     'valid' => false,
-                    'text' => 'Please provide a valid text.'
+                    'error' => 'Please provide a valid ' . $name . ' Max: ' . $length,
+                    'text'  => $text
                 ];
             }
         } else {
             return [
                 'valid' => false,
-                'text' =>  'Please provide a valid ' . $name . ' Max: ' . $length
+                'error' => 'Please provide a valid ' . $name . ' Max: ' . $length,
+                'text'  => $text
             ];
         }
     }
 
-    public function checkNum($num)
+    public function checkNum($num, $name, $length)
     {
         if (is_numeric($num)) {
             return [
                 'valid' => true,
-                'text' => $num
+                'text'  => $num
             ];
         } else {
             return [
                 'valid' => false,
-                'text' => 'Please provide a valid number.'
+                'error' => 'Please provide a valid ' . $name . ' Max Digits: ' . $length,
+                'text'  => $num
             ];
         }
     }
 
-    public function checkEmail($email)
+    public function checkEmail($email, $name, $length)
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return [
                 'valid' => true,
-                'text' => $email
+                'text'  => $email
             ];
         } else {
             return [
                 'valid' => false,
-                'text' => 'Please provide a valid email.'
+                'error' => 'Please provide a valid ' . $name . ' Max: ' . $length,
+                'text'  => $email
             ];
         }
     }
@@ -115,12 +123,13 @@ class Validation
         if (str_word_count($text) <= $length) {
             return [
                 'valid' => true,
-                'text' => $text
+                'text'  => $text
             ];
         } else {
             return [
                 'valid' => false,
-                'text' =>  'Please provide a valid ' . $name . ' Max: ' . $length
+                'error' => 'Please provide a valid ' . $name . ' Max: ' . $length,
+                'text'  => $text
             ];
         }
     }

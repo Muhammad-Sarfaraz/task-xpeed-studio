@@ -1,0 +1,7 @@
+To install this script in your local computer, Please follow the instruction given below,
+
+# Create a Database with name "xpeed_studio_test".
+# Import the Database from "Database/xpeed_studio_test.sql" to mysql.
+# Define the Database credentials in "init.php" file.
+# Now put this script in public folder of wamp/xampp/mamp or you can run "php -S localhost:7070".
+# Now go to "yourhost/index.php" for list of submission and "yourhost/form.php" to submit new submission.

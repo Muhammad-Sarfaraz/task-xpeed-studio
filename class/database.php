@@ -3,10 +3,10 @@
 class Database
 {
 
-    private $host = 'localhost';
-    private $user = 'root';
-    private $pass  = '';
-    private $db_name = 'xpeed_studio_test';
+    private $host = HOST;
+    private $user = USERNAME;
+    private $pass  = PASSWORD;
+    private $db_name = DATABASE_NAME;
 
     public $conn;
     public $stmt;
