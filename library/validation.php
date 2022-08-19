@@ -11,73 +11,117 @@ class Validation
         return $result;
     }
 
-    public function checkOnlyText($text, $length)
+    public function checkOnlyText($text, $name, $length)
     {
         $text = $this->testInput($text,);
         if (ctype_alpha($text)) {
             if (strlen($text) <= $length) {
-                return $text;
+                return [
+                    'valid' => true,
+                    'text' => $text
+                ];
             } else {
-                return 0;
+                return [
+                    'valid' => false,
+                    'text' => 'Please provide a valid' . $name
+                ];
             }
         } else {
-            return 0;
+            return [
+                'valid' => false,
+                'text' => 'Please provide a valid ' . $name . ' Max: ' . $length
+            ];
         }
     }
 
-    public function checkOnlyTextWithSpace($text, $length)
+    public function checkOnlyTextWithSpace($text, $name, $length)
     {
-        $text = $this->testInput($text,);
+        $text = $this->testInput($text);
         if (preg_match("/^[a-zA-Z\s]+$/", $text)) {
             if (strlen($text) <= $length) {
-                return $text;
+                return  [
+                    'valid' => true,
+                    'text' => $text
+                ];
             } else {
-                return 0;
+                return [
+                    'valid' => false,
+                    'text' => 'Please provide a valid text.'
+                ];
             }
         } else {
-            return 0;
+            return [
+                'valid' => false,
+                'text' =>  'Please provide a valid ' . $name . ' Max: ' . $length
+            ];
         }
     }
 
-    public function checkName($name, $length)
+    public function checkName($text, $name, $length)
     {
-        $name = $this->testInput($name);
-        if (preg_match("/^[a-zA-Z ]*$/", $name)) {
-            if (strlen($name) <= $length) {
-                return $name;
+        $text = $this->testInput($text);
+        if (preg_match("/^[a-zA-Z ]*$/", $text)) {
+            if (strlen($text) <= $length) {
+                return  [
+                    'valid' => true,
+                    'text' => $text
+                ];
             } else {
-                return 0;
+                return [
+                    'valid' => false,
+                    'text' => 'Please provide a valid text.'
+                ];
             }
         } else {
-            return 0;
+            return [
+                'valid' => false,
+                'text' =>  'Please provide a valid ' . $name . ' Max: ' . $length
+            ];
         }
     }
 
     public function checkNum($num)
     {
         if (is_numeric($num)) {
-            return $num;
+            return [
+                'valid' => true,
+                'text' => $num
+            ];
         } else {
-            return 0;
+            return [
+                'valid' => false,
+                'text' => 'Please provide a valid number.'
+            ];
         }
     }
 
     public function checkEmail($email)
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return $email;
+            return [
+                'valid' => true,
+                'text' => $email
+            ];
         } else {
-            return 0;
+            return [
+                'valid' => false,
+                'text' => 'Please provide a valid email.'
+            ];
         }
     }
 
-    public function checkLength($text, $length)
+    public function checkLength($text, $name, $length)
     {
-
         if (str_word_count($text) <= $length) {
-            return $text;
+            return [
+                'valid' => true,
+                'text' => $text
+            ];
         } else {
-            return 0;
+            return [
+                'valid' => false,
+                'text' =>  'Please provide a valid ' . $name . ' Max: ' . $length
+            ];
         }
     }
 }

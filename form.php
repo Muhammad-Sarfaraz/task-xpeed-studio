@@ -2,16 +2,30 @@
 $page_title = 'Add New Employee';
 require_once 'init.php';
 
-$employee = new Order();
+$order = new Order();
+
+$validation_errors = [];
 
 if (isset($_POST['submit'])) {
-    if ($employee->insert($_POST) > 0) {
+    $insert = $order->insert($_POST);
+
+    if (is_array($insert)) {
+        $validation_errors['errors'] = $insert;
+        //var_dump($insert);
+        //die;
+    } else if ($insert > 0) {
         Notify::setFlash('Successfully', 'to added new employee!', 'success');
         header('Location: index.php');
-    } else {
-        Notify::setFlash('Failed', 'to added new employee!', 'danger');
-        header('Location: index.php');
     }
+
+
+    // if ($employee->insert($_POST) > 0) {
+    //     Notify::setFlash('Successfully', 'to added new employee!', 'success');
+    //     header('Location: index.php');
+    // } else {
+    //     Notify::setFlash('Failed', 'to added new employee!', 'danger');
+    //     header('Location: index.php');
+    // }
 }
 ?>
 
@@ -70,19 +84,36 @@ if (isset($_POST['submit'])) {
                 <div class="card contact-form-container">
                     <div class="clearfix">
                         <div class="col-2-2">
-                            <figure class="alert alert-error">
-                                <div class="alert-content">
-                                    <img src="https://s3.amazonaws.com/codecademy-content/programs/ui-design/color-ui/icon-help.svg" alt="Help indicator">
-                                    <p>Looks like you forgot to add your name!</p>
-                                </div>
-                            </figure>
+
+
+
+
+                            <?php
+
+
+                            //var_dump($validation_errors);
+                            if (empty($validation_errors) !== true) {
+                                echo ' <figure class="alert alert-error">';
+                                foreach ($validation_errors['errors'] as $error) {
+                                    if ($error !== '') {
+                                        echo '<div class="alert-content">
+        <img src="https://s3.amazonaws.com/codecademy-content/programs/ui-design/color-ui/icon-help.svg" alt="Help indicator">
+        <p>' . $error . '</p>
+    </div>';
+                                    }
+                                }
+                                echo ' </figure>';
+                            }
+
+                            ?>
+
 
                             <form action="" role="form" method="post" class="clearfix">
                                 <label>Amount</label>
                                 <input type="number" name="amount" placeholder="Enter Amount" class="input-error" required="">
 
                                 <label>Buyer</label>
-                                <input type="text" name="buyer" placeholder="Enter Buyer" required="">
+                                <input type="text" name="buyer" placeholder="Enter Buyer" max="20" required="">
 
                                 <label>Receipt id</label>
                                 <input type="text" name="receipt_id" placeholder="Enter Receipt id" required="">
@@ -92,13 +123,16 @@ if (isset($_POST['submit'])) {
                                 <input type="text" name="email" placeholder="Enter Buyer Email" required="">
 
                                 <label>Note</label>
-                                <textarea placeholder="Provide as much detail as you can so we can address your issue." name="note"></textarea>
+                                <textarea id="note" placeholder="Provide as much detail as you can so we can address your issue." max="30" name="note"></textarea>
+
 
                                 <label>City</label>
-                                <input type="text" name="city" placeholder="Enter City" required="">
+                                <input type="text" id="city" name="city" placeholder="Enter City" max="20" required="">
+
 
                                 <label>Phone</label>
-                                <input type="text" name="phone" placeholder="Enter Phone" required="">
+                                <input type="text" id="phone" name="phone" placeholder="Enter Phone" max="20" required="">
+
 
                                 <label>Entry By</label>
                                 <input type="text" name="entry_by" placeholder="Enter Entry By" required="">
